@@ -6,6 +6,7 @@ class Redirect
 {
     /**
      * Redirect to specific Page
+     *
      * @param $page
      */
     public static function to($page)

@@ -5,6 +5,7 @@ namespace Nepo\Helper;
 class ValidateRequest
 {
     private static $error = [];
+
     private static $error_messages = [
         'string' => 'The :attribute field cannot contain numbers',
         'required' => 'The :attribute field is required',
@@ -13,12 +14,12 @@ class ValidateRequest
         'mixed' => 'The :attribute field can contain letters, numbers, dash and space only',
         'number' => 'The :attribute field cannot contain letters e.g. 20.0, 20',
         'email' => 'Email address is not valid',
-        'unique' => 'That :attribute is already taken, please try another one'
+        'unique' => 'That :attribute is already taken, please try another one',
     ];
 
     /**
-     * @param array $dataAndValues, column and value to validate
-     * @param array $policies, the rules that validation must satisfy
+     * @param  array  $dataAndValues, column and value to validate
+     * @param  array  $policies, the rules that validation must satisfy
      */
     public function abide(array $dataAndValues, array $policies)
     {
@@ -33,14 +34,15 @@ class ValidateRequest
 
     /**
      * Perform validation for the data provider and set error messages
-     * @param array $data
+     *
+     * @param  array  $data
      */
     private static function doValidation(array $data)
     {
         $column = $data['column'];
         foreach ($data['policies'] as $rule => $policy) {
             $valid = call_user_func_array([self::class, $rule], [$column, $data['value'], $policy]);
-            if (!$valid) {
+            if (! $valid) {
                 self::setError(
                     str_replace(
                         [':attribute', ':policy', '_'],
@@ -61,75 +63,83 @@ class ValidateRequest
      */
     protected static function unique($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
-            return !Capsule::table($policy)->where($column, '=', $value)->exists();
+        if ($value != null && ! empty(trim($value))) {
+            return ! Capsule::table($policy)->where($column, '=', $value)->exists();
         }
+
         return true;
     }
 
     protected static function required($column, $value, $policy)
     {
-        return $value !== null && !empty(trim($value));
+        return $value !== null && ! empty(trim($value));
     }
 
     protected static function minLength($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
+        if ($value != null && ! empty(trim($value))) {
             return strlen($value) >= $policy;
         }
+
         return true;
     }
 
     protected static function maxLength($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
+        if ($value != null && ! empty(trim($value))) {
             return strlen($value) <= $policy;
         }
+
         return true;
     }
 
     protected static function email($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
+        if ($value != null && ! empty(trim($value))) {
             return filter_var($value, FILTER_VALIDATE_EMAIL);
         }
+
         return true;
     }
 
     protected static function mixed($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
-            if (!preg_match('/^[A-Za-z0-9 .,_~\-!@#\&%\^\'\*\(\)]+$/', $value)) {
+        if ($value != null && ! empty(trim($value))) {
+            if (! preg_match('/^[A-Za-z0-9 .,_~\-!@#\&%\^\'\*\(\)]+$/', $value)) {
                 return false;
             }
         }
+
         return true;
     }
 
     protected static function string($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
-            if (!preg_match('/^[A-Za-z ]+$/', $value)) {
+        if ($value != null && ! empty(trim($value))) {
+            if (! preg_match('/^[A-Za-z ]+$/', $value)) {
                 return false;
             }
         }
+
         return true;
     }
 
     protected static function number($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
-            if (!preg_match('/^[0-9.]+$/', $value)) {
+        if ($value != null && ! empty(trim($value))) {
+            if (! preg_match('/^[0-9.]+$/', $value)) {
                 return false;
             }
         }
+
         return true;
     }
 
     /**
      * Set specific error
+     *
      * @param $error
-     * @param null $key
+     * @param  null  $key
      */
     private static function setError($error, $key = null)
     {
@@ -142,6 +152,7 @@ class ValidateRequest
 
     /**
      * return true if there is validation error
+     *
      * @return bool
      */
     public function hasError()
@@ -151,6 +162,7 @@ class ValidateRequest
 
     /**
      * Return all validation errors
+     *
      * @return array
      */
     public function getErrorMessages()

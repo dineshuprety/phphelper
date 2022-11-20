@@ -10,7 +10,7 @@ it('can set session data in string', function () {
 it('can set session data in array', function () {
     $add = Session::add('helper', [
         'name' => 'phpHelper',
-        'author' => 'Dinesh Uprety'
+        'author' => 'Dinesh Uprety',
     ]);
     expect($add)->toBeArray();
 });

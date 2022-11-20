@@ -42,7 +42,7 @@ class ValidateRequest
         $column = $data['column'];
         foreach ($data['policies'] as $rule => $policy) {
             $valid = call_user_func_array([self::class, $rule], [$column, $data['value'], $policy]);
-            if (!$valid) {
+            if (! $valid) {
                 self::setError(
                     str_replace(
                         [':attribute', ':policy', '_'],
@@ -60,7 +60,7 @@ class ValidateRequest
      * @param $value, value passed into the form
      * @param $policy, the rule that e set e.g min = 5
      * @return bool, true | false
-     
+
         protected static function unique($column, $value, $policy)
         {
             if ($value != null && ! empty(trim($value))) {
@@ -70,15 +70,14 @@ class ValidateRequest
             return true;
         }
      */
-
     protected static function required($column, $value, $policy)
     {
-        return $value !== null && !empty(trim($value));
+        return $value !== null && ! empty(trim($value));
     }
 
     protected static function minLength($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
+        if ($value != null && ! empty(trim($value))) {
             return strlen($value) >= $policy;
         }
 
@@ -87,7 +86,7 @@ class ValidateRequest
 
     protected static function maxLength($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
+        if ($value != null && ! empty(trim($value))) {
             return strlen($value) <= $policy;
         }
 
@@ -96,7 +95,7 @@ class ValidateRequest
 
     protected static function email($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
+        if ($value != null && ! empty(trim($value))) {
             return filter_var($value, FILTER_VALIDATE_EMAIL);
         }
 
@@ -105,8 +104,8 @@ class ValidateRequest
 
     protected static function mixed($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
-            if (!preg_match('/^[A-Za-z0-9 .,_~\-!@#\&%\^\'\*\(\)]+$/', $value)) {
+        if ($value != null && ! empty(trim($value))) {
+            if (! preg_match('/^[A-Za-z0-9 .,_~\-!@#\&%\^\'\*\(\)]+$/', $value)) {
                 return false;
             }
         }
@@ -116,8 +115,8 @@ class ValidateRequest
 
     protected static function string($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
-            if (!preg_match('/^[A-Za-z ]+$/', $value)) {
+        if ($value != null && ! empty(trim($value))) {
+            if (! preg_match('/^[A-Za-z ]+$/', $value)) {
                 return false;
             }
         }
@@ -127,8 +126,8 @@ class ValidateRequest
 
     protected static function number($column, $value, $policy)
     {
-        if ($value != null && !empty(trim($value))) {
-            if (!preg_match('/^[0-9.]+$/', $value)) {
+        if ($value != null && ! empty(trim($value))) {
+            if (! preg_match('/^[0-9.]+$/', $value)) {
                 return false;
             }
         }

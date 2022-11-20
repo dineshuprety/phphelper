@@ -1,0 +1,49 @@
+{
+    "name": "nepo/helper",
+    "description": "This package will help php developer with some useful classes to develop the project.",
+    "keywords": [
+        "nepo",
+        "phphelper"
+    ],
+    "homepage": "https://github.com/nepo/phphelper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dineshuprety",
+            "email": "dineshuprety500@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.2",
+        "pestphp/pest": "^1.20",
+        "spatie/ray": "^1.28"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nepo\\Helper\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Nepo\\Helper\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

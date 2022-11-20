@@ -12,7 +12,7 @@ class Session
      * @return mixed
      * @throws \Exception
      */
-    public static function add($name, $value)
+    public static function add($name, $value): array | string
     {
         if($name != '' && !empty($name) && $value != '' && !empty($value)){
             return $_SESSION[$name] = $value;

@@ -18,7 +18,9 @@ composer require nepo/phphelper
 ## Usage
 
 ```php
-use Nepo\Session;
+use Nepo\Helper\Session;
+
+Session::add('$name', '$value');
 
 ```
 

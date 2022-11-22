@@ -2,7 +2,7 @@
 
 namespace Nepo\Helper;
 
-class ValidateRequest
+class ValidateRequest extends Database
 {
     private static $error = [];
 

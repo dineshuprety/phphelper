@@ -28,7 +28,7 @@ class Database
     public function __construct($host, $database, $username, $password, $port = null)
     {
         try {
-            $this->con = new PDO("mysql:host=" . $this->host . "; port=".($this->$port)? '3306' : $port ."; dbname=" . $this->database, $this->username, $this->password);
+            $this->con = new PDO("mysql:host=" . $this->host . "; port=" . (string)($this->$port) ? '3306' : $port . "; dbname=" . $this->database, $this->username, $this->password);
         } catch (\Exception $e) {
             echo "Database Connection Problems" . $e->getMessage();
         }

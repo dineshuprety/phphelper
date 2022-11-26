@@ -18,7 +18,7 @@ class Database
 
     /**
      * It's a constructor for a class that connects to a database.
-     * 
+     *
      * @param host The hostname of the database server.
      * @param database The name of the database you want to connect to.
      * @param username The username for the database
@@ -30,7 +30,7 @@ class Database
         try {
             $this->con = new PDO("mysql:host=" . $this->host . "; port=" . (string)($this->$port) ? '3306' : $port . "; dbname=" . $this->database, $this->username, $this->password);
         } catch (\Exception $e) {
-            echo "Database Connection Problems" . $e->getMessage();
+            echo 'Database Connection Problems' . $e->getMessage();
         }
     }
 }
